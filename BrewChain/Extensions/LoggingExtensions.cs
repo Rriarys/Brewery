@@ -12,7 +12,8 @@ public static class LoggingExtensions
         {
             loggerConfiguration
                 .MinimumLevel.Information() // INFO level for the application
-                .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)  // WARNING level for Microsoft logs to reduce noise
+                .MinimumLevel.Override("Microsoft", LogEventLevel.Information)  // INFO level for Microsoft logs to capture important framework events without overwhelming the log with debug information
+                .MinimumLevel.Override("Microsoft.Hosting.Lifetime", LogEventLevel.Information) // INFO level for hosting lifetime logs to capture application start and stop events
                 .MinimumLevel.Override("Microsoft.EntityFrameworkCore", LogEventLevel.Warning) // WARNING level for EF Core logs to reduce noise
                 .Enrich.FromLogContext()
                 .WriteTo.Console(
