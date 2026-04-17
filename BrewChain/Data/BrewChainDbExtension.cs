@@ -108,6 +108,16 @@ public static class BrewChainDbExtension
         dbContext.Beers.AddRange(leffeBlonde, leffeBrune, chimayRed, chimayBlue, chimayTriple);
         dbContext.Wholesalers.AddRange(wholesaler1, wholesaler2);
         dbContext.WholesalerStocks.AddRange(stock1, stock2, stock3, stock4, stock5);
-        dbContext.SaveChanges();
+
+        try 
+        {
+            dbContext.SaveChanges();
+        }
+        catch (Exception ex)
+        {
+            // Serilog or any other logging framework can be used here to log the exception
+            var logger = scope.ServiceProvider.GetRequiredService<ILogger<BrewChainDbContext>>(); // Static method, so we need to resolve the logger from the service provider
+            logger.LogError(ex, "An error occurred while seeding the database.");
+        }
     }
 }
