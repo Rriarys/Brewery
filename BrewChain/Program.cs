@@ -1,6 +1,10 @@
 using BrewChain.Data;
+using BrewChain.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Add Serilog logging
+builder.Host.AddSerilogLogging();
 
 // Add Db context with connection string from configuration
 builder.Services.AddBrewChainDbContext(builder.Configuration);
