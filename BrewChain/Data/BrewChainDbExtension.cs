@@ -109,7 +109,7 @@ public static class BrewChainDbExtension
         dbContext.Wholesalers.AddRange(wholesaler1, wholesaler2);
         dbContext.WholesalerStocks.AddRange(stock1, stock2, stock3, stock4, stock5);
 
-        try // If i forgot to add a property or made a mistake in the seeding logic
+        try // If i forgot to add a property or made a mistake in the seeding logic, this will catch the exception and log it instead of crashing the application
         {
             dbContext.SaveChanges();
         }
