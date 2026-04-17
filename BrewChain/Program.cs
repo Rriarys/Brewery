@@ -17,6 +17,9 @@ var app = builder.Build();
 // Apply any pending migrations to the database
 app.MigrateDatabase();
 
+ // Seed the database with initial data if necessary (checking Breweries table to avoid duplicate seeding)
+app.SeedDatabase();
+
 app.MapControllers();
 
 app.Run();
