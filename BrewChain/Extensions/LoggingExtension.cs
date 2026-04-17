@@ -3,7 +3,7 @@ using Serilog.Events;
 
 namespace BrewChain.Extensions;
 
-public static class LoggingExtensions
+public static class LoggingExtension
 {
     public static void AddSerilogLogging(this IHostBuilder host)
     {   
