@@ -17,7 +17,11 @@ public class BrewChainDbContext : DbContext
     {
         base.OnModelCreating(modelBuilder);
 
-        // Configure the relationships between entities using Fluent API
+        // Configure primary keys
+        modelBuilder.Entity<Brewery>().HasKey(b => b.Id);
+        modelBuilder.Entity<Beer>().HasKey(b => b.Id);
+        modelBuilder.Entity<Wholesaler>().HasKey(w => w.Id);
+        modelBuilder.Entity<WholesalerStock>().HasKey(s => s.Id);
 
         // Brewery has many Beers
         modelBuilder.Entity<Brewery>()
