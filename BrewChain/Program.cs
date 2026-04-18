@@ -1,5 +1,6 @@
 using BrewChain.Data;
 using BrewChain.Extensions;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +14,9 @@ builder.Services.AddBrewChainDbContext(builder.Configuration);
 builder.Services.AddControllers();
 
 var app = builder.Build();
+
+// Use Serilog request logging middleware to log HTTP requests and responses
+app.UseSerilogRequestLogging();
 
 // Apply any pending migrations to the database
 app.MigrateDatabase();
