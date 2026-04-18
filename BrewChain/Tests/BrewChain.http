@@ -1,12 +1,12 @@
 @hostname = localhost
 @port = 5090
-@breweryId = 2896d324-812f-4c24-85ed-42c4d5538967
-@breweryStockId = 0
-@beerId = 86903819-30a2-4a77-ab9a-7a49ee1d24c6
-@wholesalerId = 04698781-a6bb-4c20-8a3e-d8c0896afe49
-@wholesalerStockId = c03393a3-2190-49ee-8bda-523efece3398
-@shopId = 0
-@shopStockId = 0
+@breweryId = 28d19840-a072-45fd-a345-a91dc030c207
+@breweryStockId = 028436b8-4b63-4cf6-9b0f-b9f7745a11f1
+@beerId = 7e299e74-7a51-47eb-98d0-933be4e88e7c
+@wholesalerId = 03d1338b-48f2-4830-9fe6-60b3132b42f4
+@wholesalerStockId = a3c59255-0d8c-44f3-9a77-89d1941ad897
+@shopId = 6be7d24c-15f8-4002-ba38-c2b1cd90a239
+@shopStockId = 5113d884-9d0e-49f7-95bb-1f30d7317fc1
 
 # Get all breweries
 GET http://{{hostname}}:{{port}}/api/breweries
