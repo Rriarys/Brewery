@@ -28,11 +28,18 @@ public class BrewChainDbContext : DbContext
         modelBuilder.Entity<BreweryStock>().HasKey(s => s.Id);
         modelBuilder.Entity<Shop>().HasKey(s => s.Id);
         modelBuilder.Entity<ShopStock>().HasKey(s => s.Id);
+
         // Brewery has many Beers
         modelBuilder.Entity<Brewery>()
             .HasMany(b => b.Beers)
             .WithOne(b => b.Brewery)
             .HasForeignKey(b => b.BreweryId);
+
+        // Brewery has many BreweryStocks
+        modelBuilder.Entity<Brewery>()
+            .HasMany(b => b.BreweryStocks)
+            .WithOne(s => s.Brewery)
+            .HasForeignKey(s => s.BreweryId);
 
         // Wholesaler has many WholesalerStocks
         modelBuilder.Entity<Wholesaler>()
@@ -46,22 +53,22 @@ public class BrewChainDbContext : DbContext
             .WithOne(s => s.Beer)
             .HasForeignKey(s => s.BeerId);
         
-        // Brewery has many BreweryStocks
-        modelBuilder.Entity<Brewery>()
+        // Beer has many ShopStocks
+        modelBuilder.Entity<Beer>()
+            .HasMany<ShopStock>()
+            .WithOne(ss => ss.Beer)
+            .HasForeignKey(ss => ss.BeerId);
+
+        // Beer has many BreweryStocks
+        modelBuilder.Entity<Beer>()
             .HasMany<BreweryStock>()
-            .WithOne(s => s.Brewery)
-            .HasForeignKey(s => s.BreweryId);
+            .WithOne(bs => bs.Beer)
+            .HasForeignKey(bs => bs.BeerId);
 
         // Shop has many ShopStocks
         modelBuilder.Entity<Shop>()
             .HasMany(s => s.ShopStocks)
             .WithOne(ss => ss.Shop)
             .HasForeignKey(ss => ss.ShopId);
-
-        // Beer has many ShopStocks
-        modelBuilder.Entity<Beer>()
-            .HasMany<ShopStock>()
-            .WithOne(ss => ss.Beer)
-            .HasForeignKey(ss => ss.BeerId);
     }
 }

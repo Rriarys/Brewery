@@ -40,7 +40,7 @@ namespace BrewChain.Data.Migrations
 
                     b.HasIndex("BreweryId");
 
-                    b.ToTable("Beers");
+                    b.ToTable("Beers", (string)null);
                 });
 
             modelBuilder.Entity("BrewChain.Models.Brewery", b =>
@@ -55,7 +55,7 @@ namespace BrewChain.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Breweries");
+                    b.ToTable("Breweries", (string)null);
                 });
 
             modelBuilder.Entity("BrewChain.Models.BreweryStock", b =>
@@ -79,7 +79,7 @@ namespace BrewChain.Data.Migrations
 
                     b.HasIndex("BreweryId");
 
-                    b.ToTable("BreweryStocks");
+                    b.ToTable("BreweryStocks", (string)null);
                 });
 
             modelBuilder.Entity("BrewChain.Models.Shop", b =>
@@ -94,7 +94,7 @@ namespace BrewChain.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Shops");
+                    b.ToTable("Shops", (string)null);
                 });
 
             modelBuilder.Entity("BrewChain.Models.ShopStock", b =>
@@ -118,7 +118,7 @@ namespace BrewChain.Data.Migrations
 
                     b.HasIndex("ShopId");
 
-                    b.ToTable("ShopStocks");
+                    b.ToTable("ShopStocks", (string)null);
                 });
 
             modelBuilder.Entity("BrewChain.Models.Wholesaler", b =>
@@ -133,7 +133,7 @@ namespace BrewChain.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Wholesalers");
+                    b.ToTable("Wholesalers", (string)null);
                 });
 
             modelBuilder.Entity("BrewChain.Models.WholesalerStock", b =>
@@ -157,7 +157,7 @@ namespace BrewChain.Data.Migrations
 
                     b.HasIndex("WholesalerId");
 
-                    b.ToTable("WholesalerStocks");
+                    b.ToTable("WholesalerStocks", (string)null);
                 });
 
             modelBuilder.Entity("BrewChain.Models.Beer", b =>
