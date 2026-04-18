@@ -21,7 +21,9 @@ namespace BrewChain.Controllers
         public async Task<ActionResult<IEnumerable<BreweryDto>>> GetBreweries()
         {
             var breweries = await _dbContext.Breweries
-            .Select(b => new BreweryDto(b.Id, b.Name))
+            .Select(b => new BreweryDto(
+                b.Id, 
+                b.Name))
             .ToListAsync();
             return Ok(breweries);
         }
@@ -32,7 +34,9 @@ namespace BrewChain.Controllers
         {
             var brewery = await _dbContext.Breweries
             .Where(b => b.Id == id)
-            .Select(b => new BreweryDto(b.Id, b.Name))
+            .Select(b => new BreweryDto(
+                b.Id, 
+                b.Name))
             .FirstOrDefaultAsync();
             if (brewery == null)
             {

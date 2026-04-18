@@ -21,7 +21,11 @@ namespace BrewChain.Controllers
         public async Task<ActionResult<IEnumerable<WholesalerStockDto>>> GetWholesalerStocks()
         {
             var stocks = await _dbContext.WholesalerStocks
-                .Select(ws => new WholesalerStockDto(ws.Id, ws.Wholesaler.Name, ws.Beer.Name, ws.Quantity))
+                .Select(ws => new WholesalerStockDto(
+                    ws.Id, 
+                    ws.Wholesaler.Name, 
+                    ws.Beer.Name, 
+                    ws.Quantity))
                 .ToListAsync();
             return Ok(stocks);
         }
@@ -32,7 +36,11 @@ namespace BrewChain.Controllers
         {
             var stock = await _dbContext.WholesalerStocks
                 .Where(ws => ws.Id == id)
-                .Select(ws => new WholesalerStockDto(ws.Id, ws.Wholesaler.Name, ws.Beer.Name, ws.Quantity))
+                .Select(ws => new WholesalerStockDto(
+                    ws.Id, 
+                    ws.Wholesaler.Name, 
+                    ws.Beer.Name, 
+                    ws.Quantity))
                 .FirstOrDefaultAsync();
             if (stock == null)
             {

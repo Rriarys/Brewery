@@ -21,7 +21,12 @@ namespace BrewChain.Controllers
         public async Task<ActionResult<IEnumerable<BeerDto>>> GetBeers()
         {
             var beers = await _dbContext.Beers
-                .Select(b => new BeerDto(b.Id, b.Name, b.AlcoholContent, b.Price, b.Brewery.Name))
+                .Select(b => new BeerDto(
+                    b.Id, 
+                    b.Name, 
+                    b.AlcoholContent, 
+                    b.Price, 
+                    b.Brewery.Name))
                 .ToListAsync();
             return Ok(beers);
         }
@@ -32,7 +37,12 @@ namespace BrewChain.Controllers
         {
             var beer = await _dbContext.Beers
                 .Where(b => b.Id == id)
-                .Select(b => new BeerDto(b.Id, b.Name, b.AlcoholContent, b.Price, b.Brewery.Name))
+                .Select(b => new BeerDto(
+                    b.Id, 
+                    b.Name, 
+                    b.AlcoholContent, 
+                    b.Price, 
+                    b.Brewery.Name))
                 .FirstOrDefaultAsync();
             if (beer == null)
             {

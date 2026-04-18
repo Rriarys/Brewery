@@ -1,37 +1,49 @@
 @hostname = localhost
 @port = 5090
 @breweryId = 2896d324-812f-4c24-85ed-42c4d5538967
+@breweryStockId = 0
 @beerId = 86903819-30a2-4a77-ab9a-7a49ee1d24c6
 @wholesalerId = 04698781-a6bb-4c20-8a3e-d8c0896afe49
 @wholesalerStockId = c03393a3-2190-49ee-8bda-523efece3398
-
+@shopId = 0
+@shopStockId = 0
 
 # Get all breweries
 GET http://{{hostname}}:{{port}}/api/breweries
 
 ###
 
-# Get a specific brewery by ID
+# GET a specific brewery by ID
 GET http://{{hostname}}:{{port}}/api/breweries/{{breweryId}}
 
 ###
 
-# Get all beers
+# GET all brewerystocks
+GET http://{{hostname}}:{{port}}/api/brewerystocks
+
+###
+
+# GET a specific brewerystock by ID
+GET http://{{hostname}}:{{port}}/api/brewerystocks/{{breweryStockId}}
+
+###
+
+# GET all beers
 GET http://{{hostname}}:{{port}}/api/beers
 
 ###
 
-# Get a specific beer by ID
+# GET a specific beer by ID
 GET http://{{hostname}}:{{port}}/api/beers/{{beerId}}
 
 ###
 
-# Get all wholesalers
+# GET all wholesalers
 GET http://{{hostname}}:{{port}}/api/wholesalers
 
 ###
 
-# Get a specific wholesaler by ID
+# GET a specific wholesaler by ID
 GET http://{{hostname}}:{{port}}/api/wholesalers/{{wholesalerId}}
 
 ###
@@ -43,5 +55,25 @@ GET http://{{hostname}}:{{port}}/api/wholesalerstocks
 
 # GET a specific wholesalerstock by ID
 GET http://{{hostname}}:{{port}}/api/wholesalerstocks/{{wholesalerStockId}}
+
+###
+
+# GET all shops
+GET http://{{hostname}}:{{port}}/api/shops
+
+###
+
+# GET a specific shop by ID
+GET http://{{hostname}}:{{port}}/api/shops/{{shopId}}
+
+###
+
+# GET all shopstocks
+GET http://{{hostname}}:{{port}}/api/shopstocks
+
+###
+
+# GET a specific shopstock by ID
+GET http://{{hostname}}:{{port}}/api/shopstocks/{{shopStockId}}
 
 ###
