@@ -1,4 +1,5 @@
 using BrewChain.Models;
+using BrewChain.Models.Enums.e_Configs;
 namespace BrewChain.Data;
 
 public class BrewChainDbSeeder
@@ -470,6 +471,15 @@ public class BrewChainDbSeeder
             Quantity = 6
         };
 
+        // ================ Create some logisticians ================
+        var logistician1 = new Logistician { Name = "FastTrans Logistics", SupportedTransports = TransportType.RoadOnly | TransportType.AirFreight, Wallet = new Wallet { Balance = 3000m } };
+        var logistician2 = new Logistician { Name = "Global Freight Solutions", SupportedTransports = TransportType.RoadOnly | TransportType.SeaFreight, Wallet = new Wallet { Balance = 3000m } };
+        var logistician3 = new Logistician { Name = "Express Shipping Co.", SupportedTransports = TransportType.AirFreight, Wallet = new Wallet { Balance = 3000m } };
+        var logistician4 = new Logistician { Name = "Oceanic Transport Ltd.", SupportedTransports = TransportType.SeaFreight, Wallet = new Wallet { Balance = 3000m } };
+        var logistician5 = new Logistician { Name = "Continental Logistics", SupportedTransports = TransportType.RoadOnly | TransportType.AirFreight | TransportType.SeaFreight, Wallet = new Wallet { Balance = 3000m } };
+        var logistician6 = new Logistician { Name = "Regional Haulers", SupportedTransports = TransportType.RoadOnly, Wallet = new Wallet { Balance = 3000m } };
+        
+
         // ================ Add the entities to the context and save changes ================
         dbContext.Breweries.AddRange(abbate, chimay, guinness, heineken, carlsberg, kronenbourg, moretti, modelo, asahi);
 
@@ -484,6 +494,8 @@ public class BrewChainDbSeeder
         dbContext.Shops.AddRange(shop1, shop2, shop3, shop4, shop5, shop6, shop7, shop8, shop9, shop10, shop11, shop12, shop13, shop14);
 
         dbContext.ShopStocks.AddRange(shopStock1, shopStock2, shopStock3, shopStock4, shopStock5, shopStock6, shopStock7, shopStock8, shopStock9, shopStock10, shopStock11, shopStock12, shopStock13, shopStock14, shopStock15, shopStock16, shopStock17, shopStock18, shopStock19, shopStock20, shopStock21, shopStock22, shopStock23, shopStock24, shopStock25, shopStock26, shopStock27, shopStock28, shopStock29, shopStock30);
+
+        dbContext.Logisticians.AddRange(logistician1, logistician2, logistician3, logistician4, logistician5, logistician6);
 
         dbContext.SaveChanges();
     }

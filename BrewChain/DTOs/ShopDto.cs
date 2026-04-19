@@ -2,5 +2,7 @@ namespace BrewChain.DTOs;
 
 public record ShopDto (
     Guid Id,
-    string Name
+    string Name,
+    string Location,
+    Guid WalletId
 );

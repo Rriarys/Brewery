@@ -23,7 +23,9 @@ namespace BrewChain.Controllers
             var wholesalers = await _dbContext.Wholesalers
                 .Select(w => new WholesalerDto(
                     w.Id, 
-                    w.Name))
+                    w.Name,
+                    w.Country,
+                    w.WalletId))
                 .ToListAsync();
             return Ok(wholesalers);
         }
@@ -36,7 +38,9 @@ namespace BrewChain.Controllers
                 .Where(w => w.Id == id)
                 .Select(w => new WholesalerDto(
                     w.Id, 
-                    w.Name))
+                    w.Name,
+                    w.Country,
+                    w.WalletId))
                 .FirstOrDefaultAsync();
             if (wholesaler == null)
             {

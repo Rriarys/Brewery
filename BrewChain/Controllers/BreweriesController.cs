@@ -23,7 +23,9 @@ namespace BrewChain.Controllers
             var breweries = await _dbContext.Breweries
             .Select(b => new BreweryDto(
                 b.Id, 
-                b.Name))
+                b.Name,
+                b.Country,
+                b.WalletId))
             .ToListAsync();
             return Ok(breweries);
         }
@@ -36,7 +38,9 @@ namespace BrewChain.Controllers
             .Where(b => b.Id == id)
             .Select(b => new BreweryDto(
                 b.Id, 
-                b.Name))
+                b.Name,
+                b.Country,
+                b.WalletId))
             .FirstOrDefaultAsync();
             if (brewery == null)
             {

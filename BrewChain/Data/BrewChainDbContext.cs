@@ -16,6 +16,7 @@ public class BrewChainDbContext : DbContext
     public DbSet<Shop> Shops => Set<Shop>();
     public DbSet<ShopStock> ShopStocks => Set<ShopStock>();
     public DbSet<Wallet> Wallets => Set<Wallet>();
+    public DbSet<Logistician> Logisticians => Set<Logistician>();
 
     override protected void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -30,6 +31,7 @@ public class BrewChainDbContext : DbContext
         modelBuilder.Entity<Shop>().HasKey(s => s.Id);
         modelBuilder.Entity<ShopStock>().HasKey(s => s.Id);
         modelBuilder.Entity<Wallet>().HasKey(w => w.Id);
+        modelBuilder.Entity<Logistician>().HasKey(l => l.Id);
 
         // Brewery has many Beers
         modelBuilder.Entity<Brewery>()
@@ -117,5 +119,11 @@ public class BrewChainDbContext : DbContext
                 v => v.ToUpper(),
                 v => v.ToUpper()
             );
+
+        // Logistician has one Wallet
+        modelBuilder.Entity<Logistician>()
+            .HasOne(l => l.Wallet)
+            .WithOne()
+            .HasForeignKey<Logistician>(l => l.WalletId);
     }
 }
