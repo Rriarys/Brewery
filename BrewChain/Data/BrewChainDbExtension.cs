@@ -27,10 +27,11 @@ public static class BrewChainDbExtension
         using var scope = host.Services.CreateScope(); // Create a temporary scope to resolve scoped services (DbContext, Logger) since there is no active HTTP request during application startup.
         var dbContext = scope.ServiceProvider.GetRequiredService<BrewChainDbContext>();
         var logger = scope.ServiceProvider.GetRequiredService<ILogger<BrewChainDbContext>>();
-        
+
         try // If i forgot to add a property or made a mistake in the seeding logic, this will catch the exception and log it instead of crashing the application
-        {
-            dbContext.SaveChanges();
+        {   
+             // Call the seeding method to populate the database with initial data if necessary. The seeding method should check if the data already exists to avoid duplicate entries on every startup.
+            BrewChainDbSeeder.Seed(dbContext); // Method already contains SaveChanges()
         }
         catch (Exception ex)
         {

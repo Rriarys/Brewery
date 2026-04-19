@@ -40,7 +40,7 @@ namespace BrewChain.Data.Migrations
 
                     b.HasIndex("BreweryId");
 
-                    b.ToTable("Beers", (string)null);
+                    b.ToTable("Beers");
                 });
 
             modelBuilder.Entity("BrewChain.Models.Brewery", b =>
@@ -49,13 +49,24 @@ namespace BrewChain.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("Country")
+                        .IsRequired()
+                        .HasMaxLength(2)
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<Guid>("WalletId")
+                        .HasColumnType("TEXT");
+
                     b.HasKey("Id");
 
-                    b.ToTable("Breweries", (string)null);
+                    b.HasIndex("WalletId")
+                        .IsUnique();
+
+                    b.ToTable("Breweries");
                 });
 
             modelBuilder.Entity("BrewChain.Models.BreweryStock", b =>
@@ -79,10 +90,10 @@ namespace BrewChain.Data.Migrations
 
                     b.HasIndex("BreweryId");
 
-                    b.ToTable("BreweryStocks", (string)null);
+                    b.ToTable("BreweryStocks");
                 });
 
-            modelBuilder.Entity("BrewChain.Models.Shop", b =>
+            modelBuilder.Entity("BrewChain.Models.Logistician", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -92,9 +103,44 @@ namespace BrewChain.Data.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("SupportedTransports")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<Guid>("WalletId")
+                        .HasColumnType("TEXT");
+
                     b.HasKey("Id");
 
-                    b.ToTable("Shops", (string)null);
+                    b.HasIndex("WalletId")
+                        .IsUnique();
+
+                    b.ToTable("Logisticians");
+                });
+
+            modelBuilder.Entity("BrewChain.Models.Shop", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Country")
+                        .IsRequired()
+                        .HasMaxLength(2)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("WalletId")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("WalletId")
+                        .IsUnique();
+
+                    b.ToTable("Shops");
                 });
 
             modelBuilder.Entity("BrewChain.Models.ShopStock", b =>
@@ -118,7 +164,24 @@ namespace BrewChain.Data.Migrations
 
                     b.HasIndex("ShopId");
 
-                    b.ToTable("ShopStocks", (string)null);
+                    b.ToTable("ShopStocks");
+                });
+
+            modelBuilder.Entity("BrewChain.Models.Wallet", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<decimal>("Balance")
+                        .HasColumnType("TEXT");
+
+                    b.Property<decimal>("LockedBalance")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Wallets");
                 });
 
             modelBuilder.Entity("BrewChain.Models.Wholesaler", b =>
@@ -127,13 +190,24 @@ namespace BrewChain.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("Country")
+                        .IsRequired()
+                        .HasMaxLength(2)
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<Guid>("WalletId")
+                        .HasColumnType("TEXT");
+
                     b.HasKey("Id");
 
-                    b.ToTable("Wholesalers", (string)null);
+                    b.HasIndex("WalletId")
+                        .IsUnique();
+
+                    b.ToTable("Wholesalers");
                 });
 
             modelBuilder.Entity("BrewChain.Models.WholesalerStock", b =>
@@ -157,7 +231,7 @@ namespace BrewChain.Data.Migrations
 
                     b.HasIndex("WholesalerId");
 
-                    b.ToTable("WholesalerStocks", (string)null);
+                    b.ToTable("WholesalerStocks");
                 });
 
             modelBuilder.Entity("BrewChain.Models.Beer", b =>
@@ -171,6 +245,17 @@ namespace BrewChain.Data.Migrations
                     b.Navigation("Brewery");
                 });
 
+            modelBuilder.Entity("BrewChain.Models.Brewery", b =>
+                {
+                    b.HasOne("BrewChain.Models.Wallet", "Wallet")
+                        .WithOne()
+                        .HasForeignKey("BrewChain.Models.Brewery", "WalletId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Wallet");
+                });
+
             modelBuilder.Entity("BrewChain.Models.BreweryStock", b =>
                 {
                     b.HasOne("BrewChain.Models.Beer", "Beer")
@@ -180,7 +265,7 @@ namespace BrewChain.Data.Migrations
                         .IsRequired();
 
                     b.HasOne("BrewChain.Models.Brewery", "Brewery")
-                        .WithMany()
+                        .WithMany("BreweryStocks")
                         .HasForeignKey("BreweryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -188,6 +273,28 @@ namespace BrewChain.Data.Migrations
                     b.Navigation("Beer");
 
                     b.Navigation("Brewery");
+                });
+
+            modelBuilder.Entity("BrewChain.Models.Logistician", b =>
+                {
+                    b.HasOne("BrewChain.Models.Wallet", "Wallet")
+                        .WithOne()
+                        .HasForeignKey("BrewChain.Models.Logistician", "WalletId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Wallet");
+                });
+
+            modelBuilder.Entity("BrewChain.Models.Shop", b =>
+                {
+                    b.HasOne("BrewChain.Models.Wallet", "Wallet")
+                        .WithOne()
+                        .HasForeignKey("BrewChain.Models.Shop", "WalletId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Wallet");
                 });
 
             modelBuilder.Entity("BrewChain.Models.ShopStock", b =>
@@ -207,6 +314,17 @@ namespace BrewChain.Data.Migrations
                     b.Navigation("Beer");
 
                     b.Navigation("Shop");
+                });
+
+            modelBuilder.Entity("BrewChain.Models.Wholesaler", b =>
+                {
+                    b.HasOne("BrewChain.Models.Wallet", "Wallet")
+                        .WithOne()
+                        .HasForeignKey("BrewChain.Models.Wholesaler", "WalletId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Wallet");
                 });
 
             modelBuilder.Entity("BrewChain.Models.WholesalerStock", b =>
@@ -231,6 +349,8 @@ namespace BrewChain.Data.Migrations
             modelBuilder.Entity("BrewChain.Models.Brewery", b =>
                 {
                     b.Navigation("Beers");
+
+                    b.Navigation("BreweryStocks");
                 });
 
             modelBuilder.Entity("BrewChain.Models.Shop", b =>

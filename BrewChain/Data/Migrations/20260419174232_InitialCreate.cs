@@ -12,15 +12,56 @@ namespace BrewChain.Data.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "Wallets",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Balance = table.Column<decimal>(type: "TEXT", nullable: false),
+                    LockedBalance = table.Column<decimal>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Wallets", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Breweries",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    Name = table.Column<string>(type: "TEXT", nullable: false)
+                    Name = table.Column<string>(type: "TEXT", nullable: false),
+                    Country = table.Column<string>(type: "TEXT", maxLength: 2, nullable: false),
+                    WalletId = table.Column<Guid>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Breweries", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Breweries_Wallets_WalletId",
+                        column: x => x.WalletId,
+                        principalTable: "Wallets",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Logisticians",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Name = table.Column<string>(type: "TEXT", nullable: false),
+                    WalletId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    SupportedTransports = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Logisticians", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Logisticians_Wallets_WalletId",
+                        column: x => x.WalletId,
+                        principalTable: "Wallets",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -28,11 +69,19 @@ namespace BrewChain.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    Name = table.Column<string>(type: "TEXT", nullable: false)
+                    Name = table.Column<string>(type: "TEXT", nullable: false),
+                    Country = table.Column<string>(type: "TEXT", maxLength: 2, nullable: false),
+                    WalletId = table.Column<Guid>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Shops", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Shops_Wallets_WalletId",
+                        column: x => x.WalletId,
+                        principalTable: "Wallets",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -40,11 +89,19 @@ namespace BrewChain.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    Name = table.Column<string>(type: "TEXT", nullable: false)
+                    Name = table.Column<string>(type: "TEXT", nullable: false),
+                    Country = table.Column<string>(type: "TEXT", maxLength: 2, nullable: false),
+                    WalletId = table.Column<Guid>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Wholesalers", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Wholesalers_Wallets_WalletId",
+                        column: x => x.WalletId,
+                        principalTable: "Wallets",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -152,6 +209,12 @@ namespace BrewChain.Data.Migrations
                 column: "BreweryId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Breweries_WalletId",
+                table: "Breweries",
+                column: "WalletId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_BreweryStocks_BeerId",
                 table: "BreweryStocks",
                 column: "BeerId");
@@ -162,6 +225,18 @@ namespace BrewChain.Data.Migrations
                 column: "BreweryId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Logisticians_WalletId",
+                table: "Logisticians",
+                column: "WalletId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Shops_WalletId",
+                table: "Shops",
+                column: "WalletId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ShopStocks_BeerId",
                 table: "ShopStocks",
                 column: "BeerId");
@@ -170,6 +245,12 @@ namespace BrewChain.Data.Migrations
                 name: "IX_ShopStocks_ShopId",
                 table: "ShopStocks",
                 column: "ShopId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Wholesalers_WalletId",
+                table: "Wholesalers",
+                column: "WalletId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_WholesalerStocks_BeerId",
@@ -189,6 +270,9 @@ namespace BrewChain.Data.Migrations
                 name: "BreweryStocks");
 
             migrationBuilder.DropTable(
+                name: "Logisticians");
+
+            migrationBuilder.DropTable(
                 name: "ShopStocks");
 
             migrationBuilder.DropTable(
@@ -205,6 +289,9 @@ namespace BrewChain.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "Breweries");
+
+            migrationBuilder.DropTable(
+                name: "Wallets");
         }
     }
 }

@@ -7,8 +7,8 @@
 @wholesalerStockId = a3c59255-0d8c-44f3-9a77-89d1941ad897
 @shopId = 6be7d24c-15f8-4002-ba38-c2b1cd90a239
 @shopStockId = 5113d884-9d0e-49f7-95bb-1f30d7317fc1
-@logisticianId = null
-@walletId = null
+@logisticianId = 96d17618-9b43-4454-be14-2af9531dc6f2
+@walletId = 0b0402dd-24b3-4693-83be-fa853c306b9c
 
 # Get all breweries
 GET http://{{hostname}}:{{port}}/api/breweries
